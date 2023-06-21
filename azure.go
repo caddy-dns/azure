@@ -38,14 +38,13 @@ func (p *Provider) Provision(ctx caddy.Context) error {
 
 // UnmarshalCaddyfile sets up the DNS provider from Caddyfile tokens. Syntax:
 //
-// azure {
-//     tenant_id <string>
-//     client_id <string>
-//     client_secret <string>
-//     subscription_id <string>
-//     resource_group_name <string>
-// }
-//
+//	azure {
+//	    tenant_id <string>
+//	    client_id <string>
+//	    client_secret <string>
+//	    subscription_id <string>
+//	    resource_group_name <string>
+//	}
 func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 	for d.Next() {
 		if d.NextArg() {
