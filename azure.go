@@ -27,11 +27,11 @@ func (Provider) CaddyModule() caddy.ModuleInfo {
 // Provision implements the Provisioner interface to initialize the Azure client
 func (p *Provider) Provision(ctx caddy.Context) error {
 	repl := caddy.NewReplacer()
+	p.Provider.SubscriptionId = repl.ReplaceAll(p.Provider.SubscriptionId, "")
+	p.Provider.ResourceGroupName = repl.ReplaceAll(p.Provider.ResourceGroupName, "")
 	p.Provider.TenantId = repl.ReplaceAll(p.Provider.TenantId, "")
 	p.Provider.ClientId = repl.ReplaceAll(p.Provider.ClientId, "")
 	p.Provider.ClientSecret = repl.ReplaceAll(p.Provider.ClientSecret, "")
-	p.Provider.SubscriptionId = repl.ReplaceAll(p.Provider.SubscriptionId, "")
-	p.Provider.ResourceGroupName = repl.ReplaceAll(p.Provider.ResourceGroupName, "")
 
 	return nil
 }
@@ -39,11 +39,11 @@ func (p *Provider) Provision(ctx caddy.Context) error {
 // UnmarshalCaddyfile sets up the DNS provider from Caddyfile tokens. Syntax:
 //
 //	azure {
+//	    subscription_id <string>
+//	    resource_group_name <string>
 //	    tenant_id <string>
 //	    client_id <string>
 //	    client_secret <string>
-//	    subscription_id <string>
-//	    resource_group_name <string>
 //	}
 func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 	for d.Next() {
@@ -52,6 +52,20 @@ func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 		}
 		for nesting := d.Nesting(); d.NextBlock(nesting); {
 			switch d.Val() {
+			case "subscription_id":
+				if d.NextArg() {
+					p.Provider.SubscriptionId = d.Val()
+				}
+				if d.NextArg() {
+					return d.ArgErr()
+				}
+			case "resource_group_name":
+				if d.NextArg() {
+					p.Provider.ResourceGroupName = d.Val()
+				}
+				if d.NextArg() {
+					return d.ArgErr()
+				}
 			case "tenant_id":
 				if d.NextArg() {
 					p.Provider.TenantId = d.Val()
@@ -69,20 +83,6 @@ func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 			case "client_secret":
 				if d.NextArg() {
 					p.Provider.ClientSecret = d.Val()
-				}
-				if d.NextArg() {
-					return d.ArgErr()
-				}
-			case "subscription_id":
-				if d.NextArg() {
-					p.Provider.SubscriptionId = d.Val()
-				}
-				if d.NextArg() {
-					return d.ArgErr()
-				}
-			case "resource_group_name":
-				if d.NextArg() {
-					p.Provider.ResourceGroupName = d.Val()
 				}
 				if d.NextArg() {
 					return d.ArgErr()
