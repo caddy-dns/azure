@@ -20,6 +20,11 @@ To compile this Caddy module, follow the steps describe at the [Caddy Build from
 
 ## Config examples
 
+> [!TIP]
+> These examples are for authenticating using **a service principal with a secret**.
+> To attempt to authenticate using **a managed identity**, remove all of `tenant_id`, `client_id`, and `client_secret`. If any of these three values are not empty, this module will attempt to authenticate using **a service principal with a secret**.
+> Refer to [the associated README in the libdns package](https://github.com/libdns/azure) for more information.
+
 To use this module for the ACME DNS challenge, [configure the ACME issuer in your Caddy JSON](https://caddyserver.com/docs/json/apps/tls/automation/policies/issuers/acme/) like so:
 
 ```json
@@ -55,8 +60,3 @@ tls {
 ```
 
 You can replace `{$*}` or `{env.*}` with the actual values if you prefer to put it directly in your config instead of an environment variable.
-
-> [!TIP]
-> These examples are for authenticating using **a service principal with a secret**.
-> To attempt to authenticate using **a managed identity**, remove all of `tenant_id`, `client_id`, and `client_secret`. If any of these three values are not empty, this module will attempt to authenticate using **a service principal with a secret**.
-> Refer to [the associated README in the libdns package](https://github.com/libdns/azure) for more information.
