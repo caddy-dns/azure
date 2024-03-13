@@ -28,11 +28,11 @@ To use this module for the ACME DNS challenge, [configure the ACME issuer in you
     "dns": {
       "provider": {
         "name": "azure",
+        "subscription_id": "{env.AZURE_SUBSCRIPTION_ID}",
+        "resource_group_name": "{env.AZURE_RESOURCE_GROUP_NAME}",
         "tenant_id": "{env.AZURE_TENANT_ID}",
         "client_id": "{env.AZURE_CLIENT_ID}",
         "client_secret": "{env.AZURE_CLIENT_SECRET}",
-        "subscription_id": "{env.AZURE_SUBSCRIPTION_ID}",
-        "resource_group_name": "{env.AZURE_RESOURCE_GROUP_NAME}",
       }
     }
   }
@@ -44,11 +44,11 @@ or with the Caddyfile:
 ```
 tls {
   dns azure {
+    subscription_id {$AZURE_SUBSCRIPTION_ID}
+    resource_group_name {$AZURE_RESOURCE_GROUP_NAME}
     tenant_id {$AZURE_TENANT_ID}
     client_id {$AZURE_CLIENT_ID}
     client_secret {$AZURE_CLIENT_SECRET}
-    subscription_id {$AZURE_SUBSCRIPTION_ID}
-    resource_group_name {$AZURE_RESOURCE_GROUP_NAME}
   }
 }
 ```
