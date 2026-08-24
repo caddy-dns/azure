@@ -38,7 +38,7 @@ To use this module for the ACME DNS challenge, [configure the ACME issuer in you
         "resource_group_name": "{env.AZURE_RESOURCE_GROUP_NAME}",
         "tenant_id": "{env.AZURE_TENANT_ID}",
         "client_id": "{env.AZURE_CLIENT_ID}",
-        "client_secret": "{env.AZURE_CLIENT_SECRET}",
+        "client_secret": "{env.AZURE_CLIENT_SECRET}"
       }
     }
   }
